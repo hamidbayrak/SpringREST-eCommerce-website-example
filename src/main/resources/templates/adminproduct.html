@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/admin_layout}">
+<head>
+    <title>Admin Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <script>
+        function user_alert() {
+            var answer = confirm("Are you sure?");
+            return answer;
+        }
+    </script>
+    <style>
+        .container {
+            width: 100%;
+            margin: auto;
+        }
+        .one {
+            width: 50%;
+            float: left;
+        }
+        .two {
+            margin-left: 50%;
+        }
+    </style>
+</head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <div layout:fragment="content">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">Product Management</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Product Management</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- .card -->
+                            <div class="card card-primary card-outline" th:if="${update == null}">
+                                <div class="card-header">
+                                    <h5 class="m-0">Add a New Product</h5>
+                                </div>
+
+                                <div class="card-body">
+                                    <form action="/productAdd" method="post">
+                                        <section class="container">
+                                            <div class="one">
+                                                <div class="form-group">
+                                                    <input readonly="readonly" name="msg" type="text" placeholder="Product ID will generate automatic" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="title" type="text" placeholder="Title" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="detail" type="text" placeholder="Detail" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="price" type="text" placeholder="Price" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="price_old" type="text" placeholder="Old Price" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="two">
+                                                <div class="form-group">
+                                                    <input name="img1" type="text" placeholder="img1" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="img2" type="text" placeholder="img2" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="img3" type="text" placeholder="img3" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="date" type="date" class="form-control"/>
+                                                </div>
+                                                <select name="cid" class="custom-select">
+                                                    <option selected>Category Select</option>
+                                                    <option th:if="${catlist != null}" th:each="item, iter : ${catlist}" th:text="${item.categoryName}" th:value="${item.cid}" >Status</option>
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-primary">Add</button>
+                                        </section>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="card card-primary card-outline" th:if="${update != null}">
+                                <div class="card-header">
+                                    <h5 class="m-0">Update Selected Product</h5>
+                                </div>
+
+                                <div class="card-body">
+                                    <form action="/productAdd" method="post">
+                                        <section class="container">
+                                            <div class="one">
+                                                <div class="form-group">
+                                                    <input th:value="${update.pid}" readonly="readonly" name="pid" type="text" placeholder="pid" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.title}" name="title" type="text" placeholder="Title" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.detail}" name="detail" type="text" placeholder="Detail" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.price}" name="price" type="text" placeholder="Price" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.price_old}" name="price_old" type="text" placeholder="Old Price" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="two">
+                                                <div class="form-group">
+                                                    <input th:value="${update.img1}" name="img1" type="text" placeholder="img1" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.img2}" name="img2" type="text" placeholder="img2" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.img3}" name="img3" type="text" placeholder="img3" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input th:value="${update.date}" name="date" type="date" class="form-control"/>
+                                                </div>
+                                                <select required name="cid" class="custom-select">
+                                                    <option value="">Category Select</option>
+                                                    <option th:if="${catlist != null}" th:each="item, iter : ${catlist}" th:text="${item.categoryName}" th:value="${item.cid}" >Status</option>
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-primary">Update</button>
+                                        </section>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col-md-6 -->
+                        <div class="col-lg-12">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h5 class="m-0">Existing Products</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">pid</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Detail</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Old Price</th>
+                                            <th scope="col">img1</th>
+                                            <th scope="col">img2</th>
+                                            <th scope="col">img3</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">cid</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:if="${ prolist != null }" th:each="item , iter : ${prolist}">
+                                            <th th:text="${item.pid}"></th>
+                                            <td th:text="${item.title}"></td>
+                                            <td th:text="${item.detail}"></td>
+                                            <td th:text="${item.price}"></td>
+                                            <td th:text="${item.price_old}"></td>
+                                            <td th:text="${item.img1}"></td>
+                                            <td th:text="${item.img2}"></td>
+                                            <td th:text="${item.img3}"></td>
+                                            <td th:text="${item.date}"></td>
+                                            <td th:text="${item.cid}"></td>
+
+                                            <td><a th:href="@{'/productUpdate?id='+${item.pid}}" class="btn btn-info btn-sm">Update</a>
+                                                <a onclick="return user_alert()" th:href="@{'/productDelete/'+${item.pid}}" class="btn btn-danger btn-sm">Delete</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+</div>
+</body>
+</html>

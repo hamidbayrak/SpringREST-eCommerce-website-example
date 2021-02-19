@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Daily Shop | Wishlist</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+</head>
+
+
+<body>
+
+<div layout:fragment="content_top">
+    <!-- catg header banner section -->
+    <section id="aa-catg-head-banner">
+        <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>My Wishlist</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Wishlist</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / catg header banner section -->
+</div>
+
+<div layout:fragment="content">
+    <!-- Cart view section -->
+    <section id="cart-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="cart-view-area" th:if="${wl != null}">
+                        <div class="cart-view-table aa-wishlist-table">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Stock Status</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item, iter : ${wl}">
+                                        <form action="/wishDelete" method="post">
+                                            <td><button name="wid" th:value="${item.wid}" type="submit" class="btn btn-danger btn-sm" title="Remove from Wishlist"><span class="fa fa-close"></span></button></td>
+                                        </form>
+                                        <td><a th:href="'detail?id='+${item.pid}"><img th:src="${'img/products/'+item.img1}"></a></td>
+                                        <td><a class="aa-cart-title" th:href="'detail?id='+${item.pid}" th:text="${item.title}"></a></td>
+                                        <td th:text="${item.price}+' TL'"></td>
+                                        <td>In Stock</td>
+                                        <td><a href="#" class="aa-add-to-cart-btn">Add To Cart</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / Cart view section -->
+</div>
+
+</body>
+</html>

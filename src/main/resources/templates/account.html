@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Daily Shop | Account</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+</head>
+
+<body>
+
+<div layout:fragment="content_top">
+    <!-- category header banner section -->
+    <section id="aa-catg-head-banner">
+        <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+        <div class="aa-catg-head-banner-area">
+            <div class="container">
+                <div class="aa-catg-head-banner-content">
+                    <h2>Account Page</h2>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Account</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / catg header banner section -->
+</div>
+
+<div layout:fragment="content">
+    <!-- Cart view section -->
+    <section id="aa-myaccount">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="aa-myaccount-area">
+                        <div class="row" th:if="${user_info == null}">
+                            <div class="col-md-5">
+                                <div class="aa-myaccount-login">
+                                    <h4>Login</h4>
+                                    <form action="userlogin" method="post" class="aa-login-form">
+                                        <input name="mail" type="text" placeholder="E-mail" class="form-control">
+                                        <input name="password" type="password" placeholder="Password" class="form-control">
+                                        <div th:if="${ error_msg != null }" class="alert alert-danger" role="alert" th:text="${error_msg}"></div>
+                                        <button class="aa-browse-btn">Login</button>
+                                        <label class="rememberme" for="rememberme"><input name="remember" type="checkbox" id="rememberme"> Remember me</label>
+                                        <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-2" align="center">
+                                <h3><b>- OR -</b></h3>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="aa-myaccount-register">
+                                    <h4>Register</h4>
+                                    <form action="userRegister" method="post" class="aa-login-form">
+                                        <input name="name" required type="text" placeholder="Name Surname" class="form-control">
+                                        <input name="password" required type="password" placeholder="Password" class="form-control">
+                                        <input name="mail" required type="text" placeholder="E-mail" class="form-control">
+                                        <input name="address" required type="text" placeholder="Address" class="form-control">
+                                        <button type="submit" class="aa-browse-btn">Register</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+<!-- login or not -->
+
+                        <div class="row" th:if="${user_info != null}">
+                            <div class="col-md-6">
+                                <div class="aa-myaccount-login">
+                                    <h4>My Profile</h4>
+                                    <form action="" method="" class="aa-login-form">
+                                        <input name="name" required type="text" placeholder="Name Surname" class="form-control">
+                                        <input name="password" required type="password" placeholder="Password" class="form-control">
+                                        <input name="mail" required type="text" placeholder="E-mail" class="form-control">
+                                        <input name="address" required type="text" placeholder="Address" class="form-control">
+                                        <button type="submit" class="aa-browse-btn">Save</button>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="aa-myaccount-register">
+                                    <h4>Can do..</h4>
+                                    <ul>
+                                        <li>Change Name</li>
+                                        <li>Change Mail</li>
+                                        <li>Change Password</li>
+                                        <li>Change Address</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / Cart view section -->
+</div>
+
+</body>
+</html>
